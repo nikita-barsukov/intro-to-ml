@@ -6,6 +6,8 @@ sys.path.append("tools/")
 
 from feature_format import featureFormat, targetFeatureSplit
 from tester import dump_classifier_and_data
+from ggplot import *
+import pandas as pd
 
 ### Task 1: Select what features you'll use.
 ### features_list is a list of strings, each of which is a feature name.
@@ -17,6 +19,13 @@ with open("final_project_dataset.pkl", "r") as data_file:
     data_dict = pickle.load(data_file)
 
 ### Task 2: Remove outliers
+plt_all = ggplot(pd.DataFrame(data_dict).transpose(), aes('salary', 'bonus')) + geom_point()
+del(data_dict['TOTAL'])
+plt_no_outliers = ggplot(pd.DataFrame(data_dict).transpose(), aes('salary', 'bonus')) + geom_point()
+
+print(plt_all)
+print(plt_no_outliers)
+
 ### Task 3: Create new feature(s)
 ### Store to my_dataset for easy export below.
 my_dataset = data_dict
