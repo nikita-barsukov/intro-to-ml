@@ -21,7 +21,7 @@ This is the file where I track improvement of my classifier.
 	True negatives: 9833
 ```
 
-3. Removed outier
+3. Removed outlier
 ```
 	Accuracy: 0.82600	Precision: 0.10542	Recall: 0.01750	F1: 0.03002	F2: 0.02100
 	Total predictions: 13000
@@ -29,4 +29,14 @@ This is the file where I track improvement of my classifier.
 	False positives:  297
 	False negatives: 1965
 	True negatives: 10703
+```
+
+5. Added more features
+```
+	Accuracy: 0.83657	Precision: 0.08140	Recall: 0.01400	F1: 0.02389	F2: 0.01678
+	Total predictions: 14000
+	True positives:   28
+	False positives:  316
+	False negatives: 1972
+	True negatives: 11684
 ```
