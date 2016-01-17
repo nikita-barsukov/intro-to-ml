@@ -31,12 +31,23 @@ This is the file where I track improvement of my classifier.
 	True negatives: 10703
 ```
 
-5. Added more features
+6. Feature scaling, more features
+
 ```
-	Accuracy: 0.83657	Precision: 0.08140	Recall: 0.01400	F1: 0.02389	F2: 0.01678
+	Accuracy: 0.83000	Precision: 0.11382	Recall: 0.02800	F1: 0.04494	F2: 0.03297
 	Total predictions: 14000
-	True positives:   28
-	False positives:  316
-	False negatives: 1972
-	True negatives: 11684
+	True positives:   56
+	False positives:  436
+	False negatives: 1944
+	True negatives: 11564
+```
+
+7. Decision tree not Naive Bayes
+```
+	Accuracy: 0.85207	Precision: 0.39650	Recall: 0.06800	F1: 0.11609	F2: 0.08151
+	Total predictions: 14000
+	True positives:  136
+	False positives:  207
+	False negatives: 1864
+	True negatives: 11793
 ```
