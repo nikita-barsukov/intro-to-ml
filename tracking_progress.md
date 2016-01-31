@@ -31,7 +31,7 @@ This is the file where I track improvement of my classifier.
 	True negatives: 10703
 ```
 
-6. Feature scaling, more features
+4) Feature scaling, more features
 
 ```
 	Accuracy: 0.83000	Precision: 0.11382	Recall: 0.02800	F1: 0.04494	F2: 0.03297
@@ -42,7 +42,7 @@ This is the file where I track improvement of my classifier.
 	True negatives: 11564
 ```
 
-7. Decision tree not Naive Bayes
+5) Decision tree not Naive Bayes
 ```
 	Accuracy: 0.85207	Precision: 0.39650	Recall: 0.06800	F1: 0.11609	F2: 0.08151
 	Total predictions: 14000
@@ -51,3 +51,23 @@ This is the file where I track improvement of my classifier.
 	False negatives: 1864
 	True negatives: 11793
 ```
+
+6) Pipeline, all features with min max scaler
+```
+	Accuracy: 0.80120	Precision: 0.27311	Recall: 0.29550	F1: 0.28386	F2: 0.29073
+	Total predictions: 15000
+	True positives:  591
+	False positives: 1573
+	False negatives: 1409
+	True negatives: 11427
+
+7) Select 10 features, trying multiple classifiers
+```
+	Accuracy: 0.83573	Precision: 0.38090	Recall: 0.37100	F1: 0.37589	F2: 0.37294
+	Total predictions: 15000
+	True positives:  742
+	False positives: 1206
+	False negatives: 1258
+	True negatives: 11794
+```
+
