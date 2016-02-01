@@ -13,3 +13,5 @@ CODE SNIPPETS
 2. http://stackoverflow.com/questions/21471513/sklearn-selectkbest-which-variables-were-chosen
 3. http://stackoverflow.com/questions/16348815/python-assigning-multiple-variables-to-same-value-list-behavior
 4. http://stackoverflow.com/questions/3989016/how-to-find-all-positions-of-the-maximum-value-in-a-list
+5. http://stackoverflow.com/questions/730764/try-except-in-python-how-do-you-properly-ignore-exceptions
+
