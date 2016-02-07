@@ -10,12 +10,14 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn import tree
 from sklearn.svm import SVC
 from sklearn.feature_selection import SelectKBest, f_classif
-from sklearn.metrics import classification_report
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.pipeline import Pipeline
 from sklearn.decomposition import PCA
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from sklearn.ensemble import RandomForestClassifier
+from ggplot import *
+
+import pandas as pd
 
 ### Task 1: Select what features you'll use.
 ### features_list is a list of strings, each of which is a feature name.
@@ -30,7 +32,27 @@ features_list = ['poi', 'total_payments', 'total_stock_value', 'from_poi_to_this
 with open("final_project_dataset.pkl", "r") as data_file:
     data_dict = pickle.load(data_file)
 
+# Exploring original dataset
+data_dict_pandas = pd.DataFrame(data_dict).transpose()
+print('Exploring ENRON dataset:')
+print('------------')
+shp = data_dict_pandas.shape
+print shp[0], 'observations and', shp[1], 'features'
+
+print('')
+print('Number of missing data by feature')
+print((data_dict_pandas=='NaN').sum())
+poi_counts = data_dict_pandas['poi'].value_counts()
+
+print('')
+print('Persons of interest in dataset')
+print(poi_counts)
+
+print('---------------')
+
 ### Task 2: Remove outliers
+# plotting salary and bonus variables to see if there are outliers
+print ggplot(aes(x='salary', y='bonus'), data=data_dict_pandas) + geom_point()
 del(data_dict['TOTAL'])
 
 ### Task 3: Create new feature(s)
@@ -94,6 +116,7 @@ accuracies = map(lambda cl: get_accuracy(cl, f_train=features_train,
                                          f_test=features_test,
                                          l_train=labels_train,
                                          l_test=labels_test), classifiers)
+print('')
 print 'Selecting classification algorithm.'
 print('F1 scores:')
 for acc in range(len(accuracies)):

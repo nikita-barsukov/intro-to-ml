@@ -16,4 +16,5 @@ CODE SNIPPETS
 3. http://stackoverflow.com/questions/16348815/python-assigning-multiple-variables-to-same-value-list-behavior
 4. http://stackoverflow.com/questions/3989016/how-to-find-all-positions-of-the-maximum-value-in-a-list
 5. http://stackoverflow.com/questions/730764/try-except-in-python-how-do-you-properly-ignore-exceptions
+6. http://stackoverflow.com/questions/27140860/count-occurrences-of-number-by-column-in-pandas-data-frame
 
