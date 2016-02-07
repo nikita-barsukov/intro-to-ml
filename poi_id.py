@@ -15,7 +15,8 @@ from sklearn.metrics import classification_report
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.pipeline import Pipeline
 from sklearn.decomposition import PCA
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
+from sklearn.ensemble import RandomForestClassifier
 
 ### Task 1: Select what features you'll use.
 ### features_list is a list of strings, each of which is a feature name.
@@ -58,16 +59,19 @@ labels, features = targetFeatureSplit(data)
 
 # Provided to give you a starting point. Try a variety of classifiers.
 
-estimator_tree, estimator_naive, estimator_svm = ([('rescale', MinMaxScaler()),
+estimator_tree, estimator_naive, estimator_svm, estimator_randf = ([('rescale', MinMaxScaler()),
                                                     ('select_features', SelectKBest(f_classif, k=10)),
-                                                    ('reduce_dim', PCA())] for i in range(3))
+                                                    ('reduce_dim', PCA())] for i in range(4))
 estimator_tree.append(('tree', tree.DecisionTreeClassifier()))
 estimator_naive.append(('naive', GaussianNB()))
 estimator_svm.append(('svm', SVC(kernel="linear", C=1000)))
+estimator_randf.append(('r_forest', RandomForestClassifier(random_state=31)))
+
 classifiers = [
     Pipeline(estimator_naive),
     Pipeline(estimator_tree),
-    Pipeline(estimator_svm)
+    Pipeline(estimator_svm),
+    Pipeline(estimator_randf)
 ]
 
 ### Task 5: Tune your classifier to achieve better than .3 precision and recall
@@ -82,33 +86,75 @@ from sklearn.cross_validation import train_test_split
 features_train, features_test, labels_train, labels_test = \
     train_test_split(features, labels, test_size=0.3, random_state=42)
 
-def get_accuracy(clf, f_train, f_test, l_train, l_test):
-    clf.fit(f_train, l_train)
-    pred = clf.predict(f_test)
-    return accuracy_score(l_test, pred)
+def get_accuracy(cls, f_train, f_test, l_train, l_test):
+    cls.fit(f_train, l_train)
+    pred = cls.predict(f_test)
+    return f1_score(l_test, pred)
 
 accuracies = map(lambda cl: get_accuracy(cl, f_train=features_train,
                                          f_test=features_test,
                                          l_train=labels_train,
                                          l_test=labels_test), classifiers)
-
+print 'Selecting classification algorithm.'
+print('F1 scores:')
+for acc in range(len(accuracies)):
+    print classifiers[acc].steps[3][0], '{0:.2f}'.format(accuracies[acc])
+# Selecting classifier with max F1 score
 clf = classifiers[accuracies.index(max(accuracies))]
-scores = clf.named_steps['select_features'].scores_
 
-features_selected_bool = clf.named_steps['select_features'].get_support(indices=True)
-features_selected = [features_list[i+1] for i in features_selected_bool]
-features_scores = [scores[i] for i in features_selected_bool ]
-print('Selected features:')
-print(features_selected)
-print('Feature scores:')
-for i in range(len(features_scores)):
-    print features_selected[i], '{0:.10f}'.format(features_scores[i])
+print("")
+print('Selected classifying algorithm:')
+print(classifiers[accuracies.index(max(accuracies))].steps[3][0])
+print("")
+print('Tuning classifier: selecting optimal number of features')
 
-features_list.insert(0, 'poi')
+no_of_features = list(range(2, len(features_list) - 1))
+
+def get_f1scores(no_of_features, f_train, f_test, l_train, l_test):
+    params = [('rescale', MinMaxScaler()),
+               ('select_features', SelectKBest(f_classif, k=no_of_features)),
+               ('reduce_dim', PCA()),
+               ('naive', GaussianNB())]
+    return get_accuracy(Pipeline(params), f_train, f_test, l_train, l_test)
+
+scores = map(lambda k: get_f1scores(k, f_train=features_train,
+                                    f_test=features_test,
+                                    l_train=labels_train,
+                                    l_test=labels_test), no_of_features)
+
+print 'Features\tF1 score'
+for i in range(len(no_of_features)):
+    print no_of_features[i], '\t\t\t{0:.2f}'.format(scores[i])
+
+opt_features_indices = [i for i, val in enumerate(scores) if val == max(scores)]
+opt_features = no_of_features[max(opt_features_indices)]
+
+print "Optimal number of features", opt_features
+clf = Pipeline([('rescale', MinMaxScaler()),
+                ('select_features', SelectKBest(f_classif, k=opt_features)),
+                ('reduce_dim', PCA()),
+                ('naive', GaussianNB())])
+clf.fit(features_train, labels_train)
 pred = clf.predict(features_test)
 print("")
-print("Accuracy report:")
-print(classification_report(labels_test, pred))
+print("Efficiency of selected algorithm:")
+print 'F1 score:\t', '{0:.2f}'.format(f1_score(labels_test, pred))
+print 'Accuracy:\t',  '{0:.2f}'.format(accuracy_score(labels_test, pred))
+print 'Precision:\t', '{0:.2f}'.format(precision_score(labels_test, pred))
+print 'Recall:\t',  '{0:.2f}'.format(recall_score(labels_test, pred))
+
+scores = clf.named_steps['select_features'].scores_
+features_selected_bool = clf.named_steps['select_features'].get_support(indices=True)
+features_selected = [features_list[i+1] for i in features_selected_bool]
+features_scores = [scores[i] for i in features_selected_bool]
+
+print("")
+print('Feature scores:')
+for i in range(len(features_scores)):
+    print features_selected[i], '{0:.2f}'.format(features_scores[i])
+
+features_selected.insert(0, 'poi')
+
 ### Task 6: Dump your classifier, dataset, and features_list so anyone can
 ### check your results. You do not need to change anything below, but make sure
 ### that the version of poi_id.py that you submit can be run on its own and

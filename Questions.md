@@ -10,9 +10,7 @@ This project is a grading project for Udacity course "Introduction to Machine Le
 
 In the beginning I used intuition to select features for my classifier. I started with 'total_payments' and 'from_poi_to_this_person', which produced reasonable accuracy but abysmal recall and precision. Then I decided to include all the features from the dataset. Additionally I added my own feature, share of bonus to total payments. 
 
-Since features had vastly different scale, I impelmented a min-max scaler using sklearn functions, with default parameters.   
-
-To select best features I used `SelectKBest()` function from sklearn package. 10 most significant features, with their scores are as follows:
+Since features had vastly different scale, I implemented a min-max scaler using sklearn functions, with default parameters.  To select best features I used `SelectKBest()` function from sklearn package. I ended up using 5 features:
  
  FEATURE|SCORE
  --------|-------
@@ -21,14 +19,25 @@ To select best features I used `SelectKBest()` function from sklearn package. 10
  shared_receipt_with_poi|10.6697373596
  exercised_stock_options|9.9561675821
  total_payments|8.9627155010
- deferred_income|8.4934970305
- restricted_stock|8.0511018970
- long_term_incentive|7.5345222400
- loan_advances|7.0379327982
- bonus_share|5.7907234193
   
-As we can see, most significant feature by far was size of bonus. Own feature is also made into the top 10 most significant features, thus it was used in my classifying algorithm.
+As we can see, most significant feature by far was size of bonus. Own feature did not make into the top 10 most significant features, it is 10th most significant feature according to SelectKBest() algorithm.
 
+** 3) What algorithm did you end up using? What other one(s) did you try? How did model performance differ between algorithms? **
 
+I tried four different algorithms: 
 
+* Naive Bayes
+* Decision tree 
+* Support Vector Machines with linear kernel
+* Random forest.
 
+Performance criterion is F1 score. Using 10 best features (selected with SelectKBest function), PCA and MinMax scaler, I got following F1 scores:
+ 
+Algorithm | F1 score
+----------|----------
+Naive Bayes | 0.50
+Decision tree | 0.18
+SVM, linear kernel | 0.25
+Random forest | 0.44
+
+Naive Bayes and Random Forest algorithms performed best, while SVM with linear kernel and Decision tree showed significantly lower F1 scores.
