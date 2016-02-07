@@ -56,6 +56,14 @@ I used a common approach in evaluating efficiency. I split dataset at my disposa
 
 **6) Give at least 2 evaluation metrics and your average performance for each of them.**
 
-Changing in evaluation metrics over the course of algorithm development is displayed on image below:
+Changing in evaluation metrics over the course of algorithm development using `tester.py` is displayed on image below:
 
 ![Evaluation metrics](evaluation.png)
+
+Here I plotted accuracy, precision, recall and F1 scores after each iteration of my classifier on set aside dataset used in `tester.py` script. Accuracy is simply share of correctly classified datapoints to overall number of datapoints. While it is simplest measurement, it is very deceiving for datasets with unequal distribution of labels. Indeed in this project on early stages accuracy was robust 82%, but algorithm was able to correctly identify only 3 out of a 1968 persons of interest.
+
+Better efficiency measurements are precision and recall, also plotted in image above. Precision is share of true positives to sum of true and false positives. It shows what is the share of persons of interest, identified correctly by algorithm to all the persons of interests, labelled by algorithm. 
+
+Recall is share of true positives to sum of true positives and false negatives. In other words, it shows share of persons of interest correctly identified by algorithm to all the persons of interest in our dataset.
+ 
+My final algorithm produced .85 accuracy, .4 precision and .35 recall with `tester.py` script.
