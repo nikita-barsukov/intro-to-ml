@@ -22,7 +22,7 @@ Since features had vastly different scale, I implemented a min-max scaler using 
   
 As we can see, most significant feature by far was size of bonus. Own feature did not make into the top 10 most significant features, it is 10th most significant feature according to SelectKBest() algorithm.
 
-** 3) What algorithm did you end up using? What other one(s) did you try? How did model performance differ between algorithms? **
+**3) What algorithm did you end up using? What other one(s) did you try? How did model performance differ between algorithms?**
 
 I tried four different algorithms: 
 
@@ -41,3 +41,21 @@ SVM, linear kernel | 0.25
 Random forest | 0.44
 
 Naive Bayes and Random Forest algorithms performed best, while SVM with linear kernel and Decision tree showed significantly lower F1 scores.
+
+**4) What does it mean to tune the parameters of an algorithm, and what can happen if you don’t do this well?  How did you tune the parameters of your particular algorithm?**
+
+Some classification algorithm require arguments, that affect the training of that algorithm. Support vector machines can use various types of kernel (linear and rbf being the most popular choices). Using Decision tree algorithm one can change minimum amount of samples to be required to be in internal node. Changing these parsmeters can have enormous impact on classifuer's accuracy and other evaluation metrics.
+
+However it turned out that in my algorithm Naive Bayes performed best. It does not have parameters to tune in. Instead I focused on tuning number of features to be included in dataset. I iterated over range of numbers from 2 to 17 (there are 17 features in initial dataset), calculated algorithm's F1 score on test part of initial dataset with Naive Bayes using SelectKBest function. It turned out that F1 score with 6 best features was maximum on tsplitted training set. Tester.py showed 0.4 precision and 0.35 recall, which also satisfies proejct requirements.
+ 
+**5) What is validation, and what’s a classic mistake you can make if you do it wrong? How did you validate your analysis?**
+
+Validation is a process of calculating efficiency of machine learning algorithm. Classic mistake here is that efficiency of that algorithm is evaluated on the same dataset that was used to train this algorithm.
+
+I used a common approach in evaluating efficiency. I split dataset at my disposal into train and test datasets (test dataset contains 30% of all the row, remaining is a training dataset). I used training dataset to rain my algorithm, and test dataset to calculate its efficiency parameters.
+
+**6) Give at least 2 evaluation metrics and your average performance for each of them.**
+
+Changing in evaluation metrics over the course of algorithm development is displayed on image below:
+
+![Evaluation metrics](evaluation.png)

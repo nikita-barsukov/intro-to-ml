@@ -71,3 +71,12 @@ This is the file where I track improvement of my classifier.
 	True negatives: 11794
 ```
 
+8) Select K best features, final algorithm classifier
+```
+	Accuracy: 0.84360	Precision: 0.40137	Recall: 0.35200	F1: 0.37507	F2: 0.36088
+	Total predictions: 15000	
+	True positives:  704	
+	False positives: 1050	
+	False negatives: 1296	
+	True negatives: 11950
+```

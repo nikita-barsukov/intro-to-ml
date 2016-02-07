@@ -6,6 +6,8 @@ Software documentation:
 1.  https://github.com/yhat/ggplot
 1. http://scikit-learn.org/stable/modules/feature_selection.html
 3. http://scikit-learn.org/stable/modules/pipeline.html#pipeline
+4. http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html
+5. https://github.com/cttobin/ggthemr
 
 CODE SNIPPETS
 

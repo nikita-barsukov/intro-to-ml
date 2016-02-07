@@ -4,7 +4,6 @@ import sys
 import pickle
 sys.path.append("tools/")
 
-from pprint import pprint
 from feature_format import featureFormat, targetFeatureSplit
 from tester import dump_classifier_and_data
 from sklearn.naive_bayes import GaussianNB
@@ -21,7 +20,7 @@ from sklearn.ensemble import RandomForestClassifier
 ### Task 1: Select what features you'll use.
 ### features_list is a list of strings, each of which is a feature name.
 ### The first feature must be "poi".
-features_list = ['poi','total_payments', 'total_stock_value', 'from_poi_to_this_person', 'to_messages',
+features_list = ['poi', 'total_payments', 'total_stock_value', 'from_poi_to_this_person', 'to_messages',
                  'deferral_payments', 'loan_advances', 'bonus', 'restricted_stock_deferred',
                  'deferred_income', 'expenses', 'exercised_stock_options', 'other',
                  'long_term_incentive', 'restricted_stock',
@@ -65,7 +64,7 @@ estimator_tree, estimator_naive, estimator_svm, estimator_randf = ([('rescale', 
 estimator_tree.append(('tree', tree.DecisionTreeClassifier()))
 estimator_naive.append(('naive', GaussianNB()))
 estimator_svm.append(('svm', SVC(kernel="linear", C=1000)))
-estimator_randf.append(('r_forest', RandomForestClassifier(random_state=31)))
+estimator_randf.append(('rand_forest', RandomForestClassifier(random_state=31)))
 
 classifiers = [
     Pipeline(estimator_naive),
