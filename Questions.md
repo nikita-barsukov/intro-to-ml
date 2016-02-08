@@ -95,7 +95,7 @@ Random forest | 0.44
 
 Naive Bayes and Random Forest algorithms performed best, while SVM with linear kernel and Decision tree showed significantly lower F1 scores.
 
-Interestingly enough, my own feature, `bonus_share` was selected with `SelectKBest` function, using 10 features. However when I tuned number of features (see section 2 above), the number of features producing maximum F1 score turned out to be 6. These features excluded `bonus_share`. F1 score is 0.5 for 10 features, and 0.6 for 6 features.
+Interestingly enough, my own feature, `bonus_share` was selected with `SelectKBest` function, using 10 features. However when I tuned number of features (see section 2 above), the number of features producing maximum F1 score turned out to be 6. These features excluded `bonus_share`. F1 score is 0.5 for 10 features, and 0.6 for 6 features (see section 6 for more informaiton about efficiency parameters).
 
 **4) What does it mean to tune the parameters of an algorithm, and what can happen if you don’t do this well?  How did you tune the parameters of your particular algorithm?**
 
