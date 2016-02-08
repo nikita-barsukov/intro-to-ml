@@ -135,6 +135,17 @@ for acc in range(len(accuracies)):
     print classifiers[acc].steps[3][0], '{0:.2f}'.format(accuracies[acc])
 # Selecting classifier with max F1 score
 clf = classifiers[accuracies.index(max(accuracies))]
+# Printing initial set of features
+
+sc = clf.named_steps['select_features'].scores_
+init_features_selected_bool = clf.named_steps['select_features'].get_support(indices=True)
+init_features_selected = [features_list[i+1] for i in init_features_selected_bool]
+init_features_scores = [sc[i] for i in init_features_selected_bool]
+
+print("")
+print('Initially selected feature scores:')
+for i in range(len(init_features_scores)):
+    print init_features_selected[i], '{0:.2f}'.format(init_features_scores[i])
 
 print("")
 print('Selected classifying algorithm:')

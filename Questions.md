@@ -69,7 +69,22 @@ I tried four different algorithms:
 
 As I mentioned before, I used min-max scaler, PCA decomposition and selected top 10 features using `SelectKBest()` function. Selecting optimal number of features was performed after selecting classification algorithm, as described in section 2.
 
-Performance criterion is F1 score, selected algorithms produced following scores:
+Following features were selected during determining best algorithm:
+
+Feature|Score
+--------|------
+total_payments|8.96
+total_stock_value|10.81
+loan_advances|7.04
+bonus|30.65
+deferred_income|8.49
+exercised_stock_options|9.96
+long_term_incentive|7.53
+restricted_stock|8.05
+shared_receipt_with_poi|10.67
+bonus_share|5.79
+
+Performance criterion is F1 score, selected algorithms produced following scores on set-aside test dataset:
  
 Algorithm | F1 score
 ----------|----------
@@ -79,6 +94,8 @@ SVM, linear kernel | 0.25
 Random forest | 0.44
 
 Naive Bayes and Random Forest algorithms performed best, while SVM with linear kernel and Decision tree showed significantly lower F1 scores.
+
+Interestingly enough, my own feature, `bonus_share` was selected with `SelectKBest` function, using 10 features. However when I tuned number of features (see section 2 above), the number of features producing maximum F1 score turned out to be 6. These features excluded `bonus_share`. F1 score is 0.5 for 10 features, and 0.6 for 6 features.
 
 **4) What does it mean to tune the parameters of an algorithm, and what can happen if you don’t do this well?  How did you tune the parameters of your particular algorithm?**
 
@@ -110,4 +127,11 @@ Better efficiency measurements are precision and recall, also plotted in image a
 
 Recall is share of true positives to sum of true positives and false negatives. In other words, it shows share of persons of interest correctly identified by algorithm to all the persons of interest in our dataset.
  
-My final algorithm produced .85 accuracy, .4 precision and .35 recall during cross validation using `tester.py` script.
+My final algorithm produced following evaluation metrics on set-aside test set and during cross validation using `tester.py`:
+
+Parameter|Test dataset|Cross validation, `tester.py`
+---------|------------|----
+ACCURACY |0.91        |0.85
+PRECISION|0.60        |0.40
+RECALL   |0.60        |0.35
+F1 SCORE |0.60        |0.38
