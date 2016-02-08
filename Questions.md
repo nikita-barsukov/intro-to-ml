@@ -1,7 +1,6 @@
 Enron Submission Free-Response Questions
 ==============
 
-
 **1) Summarize the goal of this project and how machine learning is useful in trying to accomplish it.**
 
 This project is a grading project for Udacity course "Introduction to Machine Learning". It deals with a dataset released in connection to famous Enron fraud scandal. Dataset contains information about key figures in Enron company at the time of that scandal, such as various compensation figures, data from email correspondence, etc. Goal of the project is to predict whether a person from dataset was convicted after fraud scandal or not using machine learning techniques.
@@ -105,10 +104,10 @@ Changing in evaluation metrics over the course of algorithm development using `t
 
 ![Evaluation metrics](evaluation.png)
 
-Here I plotted accuracy, precision, recall and F1 scores after each iteration of my classifier on set-aside dataset used in `tester.py` script. Accuracy is simply share of correctly classified data points to overall number of datapoints. While it is simplest measurement, it is very deceiving for datasets with unequal distribution of labels. Indeed in this project on early stages accuracy was robust 82%, but algorithm was able to correctly identify persons of interest only 3 out of a 1968 times.
+Here I plotted accuracy, precision, recall and F1 scores after each iteration of my classifier on cross-validating algorithm with  `tester.py` script. Accuracy is simply share of correctly classified data points to overall number of data points. While it is simplest measurement, it is very deceiving for datasets with unequal distribution of labels. Indeed in this project on early stages accuracy was robust 82%, but algorithm was able to correctly identify persons of interest only 3 out of 1968 times.
 
 Better efficiency measurements are precision and recall, also plotted in image above. Precision is share of true positives to sum of true and false positives. It shows what is the share of persons of interest, identified correctly by algorithm to all the persons of interests, labelled by algorithm. 
 
 Recall is share of true positives to sum of true positives and false negatives. In other words, it shows share of persons of interest correctly identified by algorithm to all the persons of interest in our dataset.
  
-My final algorithm produced .85 accuracy, .4 precision and .35 recall on set-aside dataset, using `tester.py` script.
+My final algorithm produced .85 accuracy, .4 precision and .35 recall during cross validation using `tester.py` script.
