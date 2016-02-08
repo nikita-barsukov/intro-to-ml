@@ -133,4 +133,6 @@ crashlytics.properties
 crashlytics-build.properties
 
 .Rproj.user
-.Rproj
+*.Rproj
+.RData
+.Rhistory

@@ -16,8 +16,10 @@ from sklearn.decomposition import PCA
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from sklearn.ensemble import RandomForestClassifier
 from ggplot import *
+from pprint import pprint
 
 import pandas as pd
+import numpy as np
 
 ### Task 1: Select what features you'll use.
 ### features_list is a list of strings, each of which is a feature name.
@@ -51,13 +53,23 @@ print(poi_counts)
 print('---------------')
 
 ### Task 2: Remove outliers
-# plotting salary and bonus variables to see if there are outliers
-print ggplot(aes(x='salary', y='bonus'), data=data_dict_pandas) + geom_point()
-del(data_dict['TOTAL'])
+# Detecting outliers:
+#  All points with salary more than 10 times median salary
+slry = data_dict_pandas['salary']
+slry = slry[slry != 'NaN']
+slry_diff = slry / np.median(slry)
+outliers = slry_diff[slry_diff > 10].index
+print('Outlier rows:')
+for o in outliers:
+    print(o)
+    # Removing outliers from dictionary
+    del(data_dict[o])
 
 ### Task 3: Create new feature(s)
 ### Store to my_dataset for easy export below.
 my_dataset = data_dict
+# Adding new feature:
+#   bonus to total payments ratio
 for i in my_dataset:
     new_feature = None
     try:
@@ -66,6 +78,7 @@ for i in my_dataset:
         new_feature = 0
     my_dataset[i]['bonus_share'] = new_feature
 
+# Don't forget to add bonus_share to list of features
 features_list.append('bonus_share')
 
 ### Extract features and labels from dataset for local testing
@@ -78,7 +91,6 @@ labels, features = targetFeatureSplit(data)
 ### you'll need to use Pipelines. For more info:
 ### http://scikit-learn.org/stable/modules/pipeline.html
 
-# Provided to give you a starting point. Try a variety of classifiers.
 
 estimator_tree, estimator_naive, estimator_svm, estimator_randf = ([('rescale', MinMaxScaler()),
                                                     ('select_features', SelectKBest(f_classif, k=10)),
